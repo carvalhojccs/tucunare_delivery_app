@@ -17,7 +17,10 @@ class PlanFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'          => $this->faker->word(),
+            'url'           => $this->faker->slug(),
+            'price'         => $this->faker->randomDigit(),
+            'description'   => $this->faker->paragraph()
         ];
     }
 }
