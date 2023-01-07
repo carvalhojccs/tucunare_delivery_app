@@ -1,20 +1,19 @@
 <?php
 
-namespace Tests\Feature\Livewire\Plans;
-
 use App\Http\Livewire\Plans\Index;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Livewire\Livewire;
-use Tests\TestCase;
+use App\Models\Plan;
 
-class IndexTest extends TestCase
-{
-    /** @test */
-    public function the_component_can_render()
-    {
-        $component = Livewire::test(Index::class);
+use function Pest\Livewire\livewire;
 
-        $component->assertStatus(200);
-    }
-}
+it('should list all de plans', function () {
+    $newPlans = Plan::factory()->count(3)->create();
+
+
+
+    livewire(Index::class)
+        ->assertSet('plans', function ($plans) use ($newPlans) {
+            if ($newPlans->count() === 3) {
+                return true;
+            }
+        });
+});
