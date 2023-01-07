@@ -1,20 +1,16 @@
 <?php
 
-namespace Tests\Feature\Livewire\Plans;
-
 use App\Http\Livewire\Plans\Destroy;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Livewire\Livewire;
-use Tests\TestCase;
+use App\Models\Plan;
 
-class DestroyTest extends TestCase
-{
-    /** @test */
-    public function the_component_can_render()
-    {
-        $component = Livewire::test(Destroy::class);
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Livewire\livewire;
 
-        $component->assertStatus(200);
-    }
-}
+it('should be able delete a group', function () {
+    $plan = Plan::factory()->createOne();
+
+    livewire(Destroy::class, compact('plan'))
+        ->call('destroy');
+
+    assertDatabaseCount('plans', 0);
+});
