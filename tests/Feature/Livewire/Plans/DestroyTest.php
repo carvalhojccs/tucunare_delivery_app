@@ -10,7 +10,8 @@ it('should be able delete a group', function () {
     $plan = Plan::factory()->createOne();
 
     livewire(Destroy::class, compact('plan'))
-        ->call('destroy');
+        ->call('destroy')
+        ->assertEmitted('plan::refresh-list');
 
     assertDatabaseCount('plans', 0);
 });

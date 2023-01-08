@@ -20,6 +20,7 @@ class Update extends Component
     {
         $this->validate();
         $this->plan->save();
+        $this->emit('plan::refresh-list');
     }
 
     public function render()

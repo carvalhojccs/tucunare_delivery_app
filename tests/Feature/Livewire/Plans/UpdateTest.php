@@ -24,7 +24,8 @@ it('shoul be able to upgrade a plan name', function () {
         ->set('plan.price', 90)
         ->set('plan.description', 'New plan description')
         ->call('save')
-        ->assertHasNoErrors();
+        ->assertHasNoErrors()
+        ->assertEmitted('plan::refresh-list');
 
     expect($plan->refresh())
         ->name->toBe('New plan name')

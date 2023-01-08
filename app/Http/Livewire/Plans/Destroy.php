@@ -12,6 +12,7 @@ class Destroy extends Component
     public function destroy()
     {
         $this->plan->delete();
+        $this->emit('plan::refresh-list');
     }
 
     public function render()
